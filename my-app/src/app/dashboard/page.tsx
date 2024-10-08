@@ -52,7 +52,7 @@ import Usermetrics from "@/components/user-metrics/page"
 
 function page() {
     const [currentPage, setCurrentPage] = useState('Dashboard')
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
    
     const renderPage = () => {
         switch (currentPage) {
