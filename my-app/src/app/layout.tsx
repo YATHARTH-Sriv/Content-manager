@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { EdgeStoreProvider } from "@/lib/edgestore";
 import { Providers } from "./Authprovider";
 
 const geistSans = localFont({
