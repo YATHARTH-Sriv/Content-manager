@@ -2,8 +2,8 @@ import dbconnect from '@/lib/db/connect';
 import TweetModel from '@/lib/db/model/tweet.model';
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]/route';
 import { TwitterApi } from 'twitter-api-v2';
+import { authOptions } from '../auth/[...nextauth]/option';
 
 export async function POST(req: NextRequest) {
   try {
