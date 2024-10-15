@@ -1,8 +1,11 @@
+"use client"
 import React from 'react'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 // import { FaArrowRightLong } from 'react-icons/fa6'
 
 function Navbar() {
+  const { data: session } = useSession()
   return (
     <div className="navbar border-black bg-base-100 fixed top-0 left-0 w-full z-50">
       {/* Navbar start with logo */}
@@ -40,7 +43,7 @@ function Navbar() {
 
       {/* Navbar end with Login button (always visible), and Schedule Demo (only on larger screens) */}
       <div className="navbar-end gap-3">
-        <Link href={"/Login"} className="text-black mr-7">Login</Link>
+        {session && session.user?.name ? <p  className="text-black mr-7">{session.user.name}</p> : <Link href={"/Login"} className="text-black mr-7">Login</Link>}
 
         {/* Hidden on mobile, visible on large screens */}
         <Link href={"https://yatharthportfolio.vercel.app/"} className="hidden lg:flex hover:bg-black text-md btn bg-black text-white">

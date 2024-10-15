@@ -1,5 +1,4 @@
 "use client"
-
 import Link from "next/link"
 import {
   Activity,
@@ -45,21 +44,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import Usermetrics from "@/components/user-metrics/page"
+import ContentGenerator from "@/components/content/page"
+import { useSession } from "next-auth/react"
+import UserModel from "@/lib/db/model/user.model"
+import dbconnect from "@/lib/db/connect"
+import Profile from "@/components/profile/page"
+
 
 
 function page() {
     const [currentPage, setCurrentPage] = useState('Dashboard')
-    // const [loading, setLoading] = useState(true)
-   
     const renderPage = () => {
         switch (currentPage) {
           case 'Dashboard':
             return <Dashboard />
-          case 'AI':
+          case 'usermetrics':
             return <Usermetrics />
+          case 'Content':
+            return <ContentGenerator />
+          case 'Profile':
+            return <Profile />
           default:
             return <Dashboard />
         }
@@ -345,22 +352,9 @@ function page() {
           </Card>
         </div>
       </main>
-             
-               )
+      )
+  
     return (
-    <>
-     {/* {loading ?
-        <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col space-y-3">
-          <p>Generating Your Dashboard...</p>
-          <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
-        </div>
-      </div>
-       : */}
       <div className="flex min-h-screen w-full flex-col bg-black">
             <header className="sticky top-0 flex h-16 items-center gap-4  bg-background px-4 md:px-6 bg-black text-white">
               <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -379,18 +373,18 @@ function page() {
                   Dashboard
                 </Button>
                 <Button
-                variant={currentPage === 'AI' ? 'default' : 'ghost'}
+                variant={currentPage === 'usermetrics' ? 'default' : 'ghost'}
                 className="w-full justify-start"
-                onClick={() => setCurrentPage('AI')}
+                onClick={() => setCurrentPage('usermetrics')}
                  >
                   User Metrics
                 </Button>
                 <Button
-                variant={currentPage === 'Sales' ? 'default' : 'ghost'}
+                variant={currentPage === 'Content' ? 'default' : 'ghost'}
                 className="w-full justify-start"
-                onClick={() => setCurrentPage('Sales')}
+                onClick={() => setCurrentPage('Content')}
                  >
-                  Sales
+                  Content
                 </Button>
                 <Button
                 variant={currentPage === 'Profile' ? 'default' : 'ghost'}
@@ -431,9 +425,7 @@ function page() {
             </header>
             {renderPage()}
       </div> 
-      
-    </>
-    )
+       )
 }
 
 export default page
