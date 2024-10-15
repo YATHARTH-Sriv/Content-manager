@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
 
-function page() {
+function Page() {
   const { data: session } = useSession();
   const [tweetContent, setTweetContent] = useState('');
   const [scheduleDate, setScheduleDate] = useState('');
@@ -56,4 +56,4 @@ function page() {
 };
   
 
-export default page
+export default Page

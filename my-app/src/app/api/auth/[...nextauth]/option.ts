@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
       }),
     ],
     callbacks: {
-      async signIn({ account, profile, user }) {
+      async signIn({ account,  user }) {
         // Custom logic to save extra details like the Google or Twitter profile to DB
         if (account && account.provider === 'google') {
           try {

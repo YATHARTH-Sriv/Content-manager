@@ -37,6 +37,7 @@ export default function ContentGenerator() {
       setGeneratedContent(formattedContent)
     } catch (err) {
       setError("Failed to generate content. Please try again.")
+      console.log(err)
     } finally {
       setIsLoading(false)
     }

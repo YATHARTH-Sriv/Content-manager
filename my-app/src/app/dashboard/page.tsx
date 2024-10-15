@@ -49,7 +49,7 @@ import Profile from "@/components/profile/page"
 
 
 
-function page() {
+function Page() {
     const [currentPage, setCurrentPage] = useState('Dashboard')
     const renderPage = () => {
         switch (currentPage) {
@@ -422,4 +422,4 @@ function page() {
        )
 }
 
-export default page
+export default Page
