@@ -12,8 +12,9 @@ export async function POST(req: NextRequest) {
     const userId = session?.userid; // Make sure this matches how you store the user ID
     console.log('User ID:', userId);
 
-    const { content, scheduleDate } = await req.json();
+    const { content, scheduleDate} = await req.json();
     // const { content } = await req.json();
+    console.log(scheduleDate)
     const scheduledTweet = await TweetModel.create({
       content,
       // scheduleDate: new Date(scheduleDate),

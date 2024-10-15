@@ -6,7 +6,6 @@ import {
   CircleUser,
   CreditCard,
   DollarSign,
-  Menu,
   Package2,
   Search,
   Users,
@@ -35,7 +34,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
   Table,
   TableBody,
@@ -44,13 +42,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useEffect, useState } from "react"
-import { Skeleton } from "@/components/ui/skeleton"
+import { useState } from "react"
 import Usermetrics from "@/components/user-metrics/page"
 import ContentGenerator from "@/components/content/page"
-import { useSession } from "next-auth/react"
-import UserModel from "@/lib/db/model/user.model"
-import dbconnect from "@/lib/db/connect"
 import Profile from "@/components/profile/page"
 
 

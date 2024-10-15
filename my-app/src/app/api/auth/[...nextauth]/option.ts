@@ -1,6 +1,6 @@
 import dbconnect from "@/lib/db/connect";
-import UserModel, { User } from "@/lib/db/model/user.model";
-import NextAuth, { NextAuthOptions } from "next-auth"
+import UserModel from "@/lib/db/model/user.model";
+import  { NextAuthOptions } from "next-auth"
 import TwitterProvider from "next-auth/providers/twitter";
 import GoogleProvider from "next-auth/providers/google";
 import { cookies } from "next/headers";
@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
         }
         return token;
       },
-      async session({ session, token, user }) {
+      async session({ session, token }) {
         session.accessToken = token.accessToken;
         session.userid=token.user as string
         return session;
