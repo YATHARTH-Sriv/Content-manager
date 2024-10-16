@@ -132,12 +132,12 @@ function Page() {
                   Upload Content
                 </Button>
               <p className="text-xs text-muted-foreground">
-                Last Time Uploaded: 2 days ago <button onClick={() => signOut({callbackUrl:"http://localhost:3000/dashboard"})}>Twitter</button>
+                Last Time Uploaded: 2 days ago <button onClick={() => signOut({callbackUrl:"https://contentgenie.vercel.app/dashboard"})}>Twitter</button>
               </p>
             </CardContent>: <CardContent>
               <div className="text-2xl font-bold">Connect Twitter</div>
               <p className="text-xs text-muted-foreground">
-              <button onClick={() => signIn("twitter",{callbackUrl:"http://localhost:3000/dashboard"})}>Twitter</button>
+              <button onClick={() => signIn("twitter",{callbackUrl:"https://contentgenie.vercel.app/dashboard"})}>Twitter</button>
               </p>
             </CardContent>}
           </Card>
@@ -353,7 +353,7 @@ function Page() {
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                     <DropdownMenuItem>Support</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem><button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/Login' })}>Logout</button></DropdownMenuItem>
+                    <DropdownMenuItem><button onClick={() => signOut({ callbackUrl: 'https://contentgenie.vercel.app/Login' })}>Logout</button></DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
