@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export { default } from "next-auth/middleware"
 
-export const config = { matcher: ["/dashboard"] }
+export const config = { matcher: ["/check"] }
 
 export async function middleware(request: NextRequest) {
   const cookie=cookies()
