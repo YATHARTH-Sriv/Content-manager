@@ -7,7 +7,8 @@ export interface User extends Document {
   userId: string,
   credits: number,
   twitterlogin: boolean,
-  mediumlogin: boolean,
+  twitterloginid: string,
+  hashnodelogin: boolean,
   linkedinlogin: boolean,
 }
 
@@ -19,8 +20,9 @@ const UserSchema: Schema<User> = new Schema(
     userId: { type: String, required: true },
     credits: { type: Number, required: true },
     twitterlogin: { type: Boolean, required: false },
-    mediumlogin: { type: Boolean, required: false },
-    linkedinlogin: { type: Boolean, required: false },
+    twitterloginid: { type: String, required: false },
+    hashnodelogin: { type: Boolean, required: false },
+    linkedinlogin: { type: Boolean, required: false }
   },
   { timestamps: true }  // Automatically adds createdAt and updatedAt fields
 );

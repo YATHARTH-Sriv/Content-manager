@@ -120,6 +120,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
 export default function ContentGenerator() {
   const [platform, setPlatform] = useState('')
@@ -129,6 +130,10 @@ export default function ContentGenerator() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [showContent, setShowContent] = useState(false)
+  const {data:session}=useSession()
+  // const userid=session?.userid
+
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -143,6 +148,12 @@ export default function ContentGenerator() {
 
     setIsLoading(true)
     try {
+      const res = await axios.get('/api/account-info')
+      const accountdata = res.data
+      if(accountdata.credits<=0){
+        alert('You are out of credits!')
+        return true
+      }
       const response = await axios.post("/api/content-generate", {
         title,
         platform,
@@ -150,7 +161,8 @@ export default function ContentGenerator() {
       })
 
       const data = response.data
-      const formattedContent = data.text.replace(/\n/g, '<br />')
+      let formattedContent = data.text.replace(/\n/g, '<br />')
+      formattedContent = formattedContent.replaceAll("*", '')
       setGeneratedBlog(formattedContent)
       setShowContent(true)
     } catch (err) {
@@ -164,7 +176,9 @@ export default function ContentGenerator() {
   const handleTwitter = async () => {
     try {
       const response = await axios.post('/api/schedule-post', {
-        content: generatedBlog,
+        content: generatedBlog.replace(/^"|"$/g, ""),
+        title,
+        category
       })
 
       if (response.status === 200) {
@@ -251,12 +265,17 @@ export default function ContentGenerator() {
             {showContent && (
               <div className="space-y-4">
                 <Label className="text-lg font-semibold">Generated Blog</Label>
-                <ScrollArea className="h-[50vh] w-full border rounded-md p-4 bg-gray-800 border-gray-700">
-                  <Textarea 
-                    value={generatedBlog} 
+                <ScrollArea className="h-[50vh] w-full p-4 ">
+                  {/* <Textarea 
+                    // value={generatedBlog.replace(/^"|"$/g, "")} 
+                    value={dangerouslySetInnerHTML={{ __html: generatedContent }}}
                     readOnly 
                     className="min-h-full bg-gray-800 border-none text-white resize-none"
-                  />
+                  /> */}
+                  <div
+                    className="mt-6 border p-4 w-full max-w-md text-black"
+                    dangerouslySetInnerHTML={{ __html: generatedBlog }}
+                         />
                 </ScrollArea>
               </div>
             )}

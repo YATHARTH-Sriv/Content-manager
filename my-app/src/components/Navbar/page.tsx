@@ -43,7 +43,7 @@ function Navbar() {
 
       {/* Navbar end with Login button (always visible), and Schedule Demo (only on larger screens) */}
       <div className="navbar-end gap-3">
-        {session && session.user?.name ? <p  className="text-black mr-7">Get Started</p> : <Link href={"/Login"} className="text-black mr-7">Login</Link>}
+        {session && session.user?.name ? <Link href={"/dashboard"} className="hidden lg:flex hover:bg-black hover:text-white text-md btn bg-white text-black">Get Started</Link> : <Link href={"/Login"} className="text-black mr-7">Login</Link>}
 
         {/* Hidden on mobile, visible on large screens */}
         <Link href={"https://yatharthportfolio.vercel.app/"} className="hidden lg:flex hover:bg-black text-md btn bg-black text-white">

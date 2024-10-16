@@ -19,12 +19,12 @@ function page() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">
-          <Button variant="outline" className="h-12 gap-2" onClick={() => signIn("google")}>Login with Google
+          <Button variant="outline" className="h-12 gap-2" onClick={() => signIn("google",{callbackUrl:"http://localhost:3000/dashboard"})}>Login with Google
             <FcGoogle className="mr-2 h-5 w-5" />
           </Button>
-            <Button variant="outline" className="h-12 gap-2" onClick={() => signIn("twitter")}>Login with Twitter
+            {/* <Button variant="outline" className="h-12 gap-2" onClick={() => signIn("twitter")}>Login with Twitter
             <FaTwitter className="mr-2 h-5 w-5 text-blue-400" />
-            </Button>
+            </Button> */}
         </CardContent>
       </Card>
     </div>

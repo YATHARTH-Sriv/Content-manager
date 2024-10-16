@@ -4,17 +4,13 @@ import {
   Activity,
   ArrowUpRight,
   CircleUser,
-  CreditCard,
-  DollarSign,
   Package2,
   Search,
-  Users,
 } from "lucide-react"
 
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
 } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -42,20 +38,40 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Usermetrics from "@/components/user-metrics/page"
 import ContentGenerator from "@/components/content/page"
 import Profile from "@/components/profile/page"
-import { signIn, useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react"
 import { FaTwitter } from "react-icons/fa";
 import { SiHashnode } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
+import axios from "axios"
+import { ObjectId } from "mongoose"
 
+interface userinfodata{
+createdAt:string 
+credits:number 
+email: string
+linkedinlogin: boolean
+mediumlogin: boolean
+name: string
+profileimageurl: string
+twitterlogin: boolean
+updatedAt:string
+userId: string
+__v: Number
+_id:ObjectId 
+}
 
 
 function Page() {
     const [currentPage, setCurrentPage] = useState('Dashboard')
+    const [userinfo, setuserinfo] = useState<userinfodata>()
+    const [alreadygeneratedcontent, setalreadygeneratedcontent] = useState<any []>()
+    const [credits, setcredits] = useState(0)
     const {data:session}=useSession()
+    console.log(session)
     const renderPage = () => {
         switch (currentPage) {
           case 'Dashboard':
@@ -70,6 +86,19 @@ function Page() {
             return <Dashboard />
         }
       }
+    useEffect(() => {
+      const fetchData = async () => {
+        const res = await axios.get('/api/account-info')
+        const contentres=await axios.get('/api/usercontent')
+        const data = res.data
+        const contentdata=contentres.data
+        setuserinfo(data)
+        setalreadygeneratedcontent(contentdata)
+        setcredits(data.credits)
+      }
+      fetchData()
+    },[session])
+    
 
     const Dashboard=()=>(
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -94,7 +123,7 @@ function Page() {
               {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
               <FaTwitter className="h-4 w-4 text-muted-foreground"  />
             </CardHeader>
-            {session ? <CardContent>
+            {session?.userid ? <CardContent>
                 <Button
                 variant={currentPage === 'Content' ? 'default' : 'ghost'}
                 className="text-2xl font-bold"
@@ -103,12 +132,12 @@ function Page() {
                   Upload Content
                 </Button>
               <p className="text-xs text-muted-foreground">
-                Last Time Uploaded: 2 days ago
+                Last Time Uploaded: 2 days ago <button onClick={() => signOut({callbackUrl:"http://localhost:3000/dashboard"})}>Twitter</button>
               </p>
             </CardContent>: <CardContent>
               <div className="text-2xl font-bold">Connect Twitter</div>
               <p className="text-xs text-muted-foreground">
-              <button onClick={() => signIn("twitter")}>Twitter</button>
+              <button onClick={() => signIn("twitter",{callbackUrl:"http://localhost:3000/dashboard"})}>Twitter</button>
               </p>
             </CardContent>}
           </Card>
@@ -128,12 +157,13 @@ function Page() {
               <CardTitle className="text-sm font-medium">Credits Left</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">3</div>
-              <p className="text-xs text-muted-foreground">
-                +201 since last hour
-              </p>
-            </CardContent>
+            {userinfo && credits>0 ? <CardContent>
+              <div className="text-3xl font-bold">{credits}</div>
+              </CardContent>
+              :
+              <CardContent>
+              <div className="text-3xl font-bold">No credits Left</div>
+            </CardContent>}
           </Card>
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
@@ -159,91 +189,32 @@ function Page() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Content</TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Type
-                    </TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Status
-                    </TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Date
-                    </TableHead>
                     <TableHead className="text-right">Date</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        liam@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-23
-                    </TableCell>
-                    <TableCell className="text-right">10-10-2024</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Olivia Smith</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        olivia@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Refund
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Declined
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-24
-                    </TableCell>
-                    <TableCell className="text-right">12-10-2024</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Noah Williams</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        noah@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Subscription
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-25
-                    </TableCell>
-                    <TableCell className="text-right">14-02-2024</TableCell>
-                  </TableRow>
-                </TableBody>
+                {alreadygeneratedcontent && 
+                alreadygeneratedcontent.map((content:any)=>(
+                  <TableRow key={content._id}>
+                  <TableCell>
+                       <div className="font-medium">{content.title}</div>
+                       <div className="hidden text-sm text-muted-foreground md:inline">
+                         {content.category}
+                       </div>
+                     </TableCell>
+                     <TableCell className="text-right">{content.createdAt.slice(0,10)}</TableCell>
+                   </TableRow>
+                ))
+                }
               </Table>
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-5">
             <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
+              <CardTitle>Your Subscriptions</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-8">
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
-                  <AvatarImage src="/avatars/01.png" alt="Avatar" />
                   <AvatarFallback>OM</AvatarFallback>
                 </Avatar>
                 <div className="grid gap-1">
@@ -258,7 +229,6 @@ function Page() {
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
-                  <AvatarImage src="/avatars/02.png" alt="Avatar" />
                   <AvatarFallback>JL</AvatarFallback>
                 </Avatar>
                 <div className="grid gap-1">
@@ -273,7 +243,6 @@ function Page() {
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
-                  <AvatarImage src="/avatars/03.png" alt="Avatar" />
                   <AvatarFallback>IN</AvatarFallback>
                 </Avatar>
                 <div className="grid gap-1">
@@ -288,7 +257,6 @@ function Page() {
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
-                  <AvatarImage src="/avatars/04.png" alt="Avatar" />
                   <AvatarFallback>WK</AvatarFallback>
                 </Avatar>
                 <div className="grid gap-1">
@@ -303,7 +271,6 @@ function Page() {
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
-                  <AvatarImage src="/avatars/05.png" alt="Avatar" />
                   <AvatarFallback>SD</AvatarFallback>
                 </Avatar>
                 <div className="grid gap-1">
@@ -386,7 +353,7 @@ function Page() {
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                     <DropdownMenuItem>Support</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                    <DropdownMenuItem><button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/Login' })}>Logout</button></DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>

@@ -4,21 +4,27 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { TwitterApi } from 'twitter-api-v2';
 import { authOptions } from '../auth/[...nextauth]/option';
+import { cookies } from 'next/headers';
 
 export async function POST(req: NextRequest) {
   try {
     await dbconnect();
     const session = await getServerSession(authOptions);
-    const userId = session?.userid; // Make sure this matches how you store the user ID
-    console.log('User ID:', userId);
-
-    const { content, scheduleDate} = await req.json();
+    // const userId = session?.userid; // Make sure this matches how you store the user ID
+    // console.log('User ID:', userId);
+    const cookie=cookies()
+    const googlecookie=cookie.get('mygoogleid') 
+    const userid=googlecookie?.value
+    const { content, title,category} = await req.json();
+    const posteddate = new Date();
     // const { content } = await req.json();
-    console.log(scheduleDate)
     const scheduledTweet = await TweetModel.create({
-      content,
+      title,
+      posteddate,
+      category,
       // scheduleDate: new Date(scheduleDate),
-      userId,
+      content,
+      userId:userid,
     });
     console.log('Scheduled tweet:', scheduledTweet);
 
@@ -31,6 +37,7 @@ export async function POST(req: NextRequest) {
     console.log('Twitter client created');
 
     const tweetResponse = await twitterClient.v2.tweet(scheduledTweet.content);
+    // twitterClient.v2.
     console.log('Tweet posted:', tweetResponse);
 
     return NextResponse.json({ message: 'Tweet scheduled and posted successfully', scheduledTweet }, { status: 200 });

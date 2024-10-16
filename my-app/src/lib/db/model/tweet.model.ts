@@ -1,17 +1,21 @@
 import mongoose, { Schema, Document} from "mongoose";
 
 export interface Tweet extends Document {
+  title: string,
+  posteddate: Date,
+  category: string,
   content: string, 
-  // scheduleDate: Date,
-  posted: boolean,
-  userId: string
+  // posted: boolean,
+  userId: string,
 }
 
 const TweetSchema: Schema<Tweet> = new Schema(
     {
+    title: { type: String, required: true },
+    posteddate: { type: Date, required: true },
+    category: { type: String, required: true },
     content: { type: String, required: true },
-    // scheduleDate: { type: Date, required: true },
-    posted: { type: Boolean, default: false },
+    // posted: { type: Boolean, default: false },
     userId: { type: String, required: true },
   },
   { timestamps: true }  // Automatically adds createdAt and updatedAt fields
