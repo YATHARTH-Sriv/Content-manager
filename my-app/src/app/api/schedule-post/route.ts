@@ -10,14 +10,14 @@ export async function POST(req: NextRequest) {
   try {
     await dbconnect();
     const session = await getServerSession(authOptions);
-    // const userId = session?.userid; // Make sure this matches how you store the user ID
-    // console.log('User ID:', userId);
+    const userId = session?.userid; // Make sure this matches how you store the user ID
+    console.log('User ID:', userId);
     const cookie=cookies()
     const googlecookie=cookie.get('mygoogleid') 
     const userid=googlecookie?.value
     const { content, title,category} = await req.json();
     const posteddate = new Date();
-    // const { content } = await req.json();
+    // // const { content } = await req.json();
     const scheduledTweet = await TweetModel.create({
       title,
       posteddate,
@@ -32,15 +32,17 @@ export async function POST(req: NextRequest) {
     if (!session?.accessToken) {
       throw new Error('No access token available');
     }
-
+    console.log('Access token:', session.accessToken);
     const twitterClient = new TwitterApi(session.accessToken);
-    console.log('Twitter client created');
+    console.log('Twitter client created',twitterClient);
 
-    const tweetResponse = await twitterClient.v2.tweet(scheduledTweet.content);
+    // const tweetResponse = await twitterClient.v2.tweet(scheduledTweet.content);
     // twitterClient.v2.
+    const tweetResponse = await twitterClient.v2.tweet(content);
     console.log('Tweet posted:', tweetResponse);
 
-    return NextResponse.json({ message: 'Tweet scheduled and posted successfully', scheduledTweet }, { status: 200 });
+    // return NextResponse.json({ message: 'Tweet scheduled and posted successfully', scheduledTweet }, { status: 200 });
+    return NextResponse.json({ message: 'Tweet scheduled and posted successfully', tweetResponse }, { status: 200 });
   } catch (error) {
     console.error('Error scheduling/posting tweet:', error);
     return NextResponse.json({ message: 'Error scheduling/posting tweet', error: error }, { status: 500 });

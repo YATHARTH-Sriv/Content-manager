@@ -8,6 +8,7 @@ function Page() {
   const { data: session } = useSession();
   const [tweetContent, setTweetContent] = useState('');
   const [scheduleDate, setScheduleDate] = useState('');
+  console.log('Session:', session);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

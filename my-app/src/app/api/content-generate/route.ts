@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   let tokens=70
   if(platform==='twitter'){
     wordlimit=60
-    tokens=70
+    tokens=3
   }else if(platform==='linkedin'){
     wordlimit=300
     tokens=400
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       content: res.text,
     })
 
-  }
+   }
   const modifiedres=res.text.replaceAll("*", '');
   console.log(modifiedres);
   return Response.json(res);

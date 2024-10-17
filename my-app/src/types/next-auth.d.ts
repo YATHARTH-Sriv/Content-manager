@@ -5,6 +5,10 @@ declare module "next-auth" {
     accessToken?: string;
     user:User
     userid:string
+    googleid:string
+    googleemail:string
+    googleimage:string
+    googlename:string
   }
 
   interface User {
@@ -17,6 +21,9 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     accessToken?: string;
-    googletoken?:string
+    googleid?:string;
+    googleemail?:string;
+    googleimage?:string;
+    googlename?:string;
   }
 }
