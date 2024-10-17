@@ -47,11 +47,12 @@ export const authOptions: NextAuthOptions = {
         session.googleemail=token.googleemail as string
         session.googleimage=token.googleimage as string
         session.googlename=token.googlename as string
-        addinguser(session)
+        const addedtokenuser=await addinguser(session)
+        console.log('addedtokenuser',addedtokenuser)
       }
       session.accessToken = token.accessToken;
       session.userid=token.user as string
-      console.log('session: ',session)
+      // console.log('session: ',session)
       return session;
     },
   },
@@ -71,11 +72,13 @@ async function addinguser(session:Sessiondata){
                 // Check if user already exists by userId
                 const existingUser = await UserModel.findOne({ userId: session.googleid });
                 const cookieStore = cookies();
-                console.log('cookieStore',cookieStore)
+                // console.log('cookieStore',cookieStore.)
+                console.log("cookie value set up",session.googleid)
                 const settingcookie=await cookieStore.set('mygoogleid', session.googleid, { 
                   maxAge: 60 * 60 * 24 * 7,  // 1 week expiry
                 });
-                console.log('settingcookie',settingcookie)
+
+                // console.log('settingcookie',settingcookie)
                 // If the user does not exist, create a new user
                 if (!existingUser) {
                   const newUser = new UserModel({
@@ -90,9 +93,9 @@ async function addinguser(session:Sessiondata){
                   });
           
                   await newUser.save(); // Save new user to the database
-                  console.log('New user created:', newUser);
+                  // console.log('New user created:', newUser);
                 } else {
-                  console.log('User already exists:', existingUser);
+                  // console.log('User already exists:', existingUser);
                 }
                 
                 return true;  // Proceed with the login

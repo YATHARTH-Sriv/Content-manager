@@ -4,15 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export { default } from "next-auth/middleware"
 
-export const config = { matcher: ["/check"] }
+export const config = { matcher: ["/dashboard"] }
 
 export async function middleware(request: NextRequest) {
   const cookie=cookies()
-  const googlecookie=cookie.get('mygoogleid')
-  const googleuserId=googlecookie?.value
-const token = await getToken({ req: request });
+  const googlecookie=await cookie.get('mygoogleid')
+  const googleuserId= googlecookie?.value
+// const token = await getToken({ req: request });
 // console.log("token is here",token);
-const url = request.nextUrl;
+const url = await request.nextUrl;
 // console.log("url is here",url);
 if (
     googleuserId &&

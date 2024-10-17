@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 // import { FaArrowRightLong } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { useSession } from "next-auth/react";
+import axios from "axios";
 
 const cardData = [
   { title: "Automated Invoice Generation", description: "Save time and reduce errors with our smart invoice creation tools" },
@@ -17,7 +17,20 @@ const cardData = [
 ]
 
 function Hero() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+  const [userinfo, setuserinfo] = useState()
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get('/api/account-info')
+      if(res.status===200){
+      const data = res.data
+      setuserinfo(data)
+      }
+    }
+    fetchData()
+  },[userinfo])
+  
+  
   return (
     <section className="flex flex-col items-center mt-4 justify-center px-6 py-16 bg-white dark:bg-gray-900 gap-6">
       {/* Heading Section */}
@@ -44,10 +57,10 @@ function Hero() {
         viewport={{ once: true, amount: 0.8 }}
         className="flex flex-col md:flex-row items-center mt-8 space-y-4 md:space-y-0 md:space-x-6"
       >
-        {session && session.user?.name ? <Link href={"/dashboard"} className="p-3 bg-black text-white rounded-md hover:bg-blue-700 transition">
+        {userinfo ? <Link href={"/dashboard"} className="p-3 bg-black text-white rounded-md hover:bg-blue-700 transition">
           Get Started
         </Link>:<Link href={"/Login"} className="p-3 bg-black text-white rounded-md hover:bg-blue-700 transition">Login</Link>}
-        <Link href={"/sign-in"}>
+        <Link href={"/"}>
           <button className="px-6 py-3 flex gap-2 bg-white text-black hover:text-white rounded-md hover:bg-black transition">
             Schedule Demo 
           </button>

@@ -13,7 +13,7 @@ export async function GET() {
     }
     await dbconnect();
     const founduser=await UserModel.findOne({ userId: cookieValue.value });
-    return NextResponse.json(founduser);
+    return NextResponse.json(founduser,{status:200});
   } catch (error) {
     return NextResponse.json(error, { status: 500 });
   }

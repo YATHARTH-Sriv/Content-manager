@@ -48,6 +48,7 @@ import { SiHashnode } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
 import axios from "axios"
 import { ObjectId } from "mongoose"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface userinfodata{
 createdAt:string 
@@ -70,6 +71,7 @@ function Page() {
     const [userinfo, setuserinfo] = useState<userinfodata>()
     const [alreadygeneratedcontent, setalreadygeneratedcontent] = useState<any []>()
     const [credits, setcredits] = useState(0)
+    const [loading, setLoading] = useState(true)
     const {data:session}=useSession()
     console.log(session)
     const renderPage = () => {
@@ -95,6 +97,7 @@ function Page() {
         setuserinfo(data)
         setalreadygeneratedcontent(contentdata)
         setcredits(data.credits)
+        setLoading(false);
       }
       fetchData()
     },[session])
@@ -109,7 +112,7 @@ function Page() {
                 Hashnode
               </CardTitle>
               {/* <DollarSign className="h-4 w-4 text-muted-foreground" /> */}
-              <SiHashnode className="h-4 w-4 text-muted-foreground" />
+              <SiHashnode className="h-4 w-4 text-muted-foreground  text-blue-700" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">Coming Soon</div>
@@ -121,7 +124,7 @@ function Page() {
                 Twitter
               </CardTitle>
               {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
-              <FaTwitter className="h-4 w-4 text-muted-foreground"  />
+              <FaTwitter className="h-4 w-4 text-muted-foreground text-blue-700"  />
             </CardHeader>
             {session?.userid ? <CardContent>
                 <Button
@@ -132,12 +135,12 @@ function Page() {
                   Upload Content
                 </Button>
               <p className="text-xs text-muted-foreground">
-                Last Time Uploaded: 2 days ago <button onClick={() => signOut({callbackUrl:`${process.env.NEXTAUTH_URL}/dashboard`})}>Twitter</button>
+                Last Time Uploaded: 2 days ago <button onClick={() => signOut({callbackUrl:`/dashboard`})}>Twitter</button>
               </p>
             </CardContent>: <CardContent>
               <div className="text-2xl font-bold">Connect Twitter</div>
               <p className="text-xs text-muted-foreground">
-              <button onClick={() => signIn("twitter",{callbackUrl:`${process.env.NEXTAUTH_URL}/dashboard`})}>Twitter</button>
+              <button onClick={() => signIn("twitter",{callbackUrl:`/dashboard`})}>Twitter</button>
               </p>
             </CardContent>}
           </Card>
@@ -145,7 +148,7 @@ function Page() {
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Linkedin</CardTitle>
               {/* <CreditCard className="h-4 w-4 text-muted-foreground" /> */}
-              <FaLinkedin className="h-4 w-4 text-muted-foreground" />
+              <FaLinkedin className="h-4 w-4 text-muted-foreground text-blue-700" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">Coming Soon</div>
@@ -155,7 +158,7 @@ function Page() {
           <Card x-chunk="dashboard-01-chunk-3">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Credits Left</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
+              <Activity className="h-4 w-4 text-muted-foreground text-blue-500" />
             </CardHeader>
             {userinfo && credits>0 ? <CardContent>
               <div className="text-3xl font-bold">{credits}</div>
@@ -213,7 +216,10 @@ function Page() {
               <CardTitle>Your Subscriptions</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-8">
-              <div className="flex items-center gap-4">
+              <div className="items-center gap-4">
+                  Coming Soon
+              </div>
+              {/* <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
                   <AvatarFallback>OM</AvatarFallback>
                 </Avatar>
@@ -282,7 +288,7 @@ function Page() {
                   </p>
                 </div>
                 <div className="ml-auto font-medium">+$39.00</div>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         </div>
@@ -290,6 +296,19 @@ function Page() {
       )
   
     return (
+      <>
+      {loading ?
+        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col space-y-3">
+          <p>Generating Your Dashboard...</p>
+          <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
+        </div>
+      </div>
+       :
       <div className="flex min-h-screen w-full flex-col bg-black">
             <header className="sticky top-0 flex h-16 items-center gap-4  bg-background px-4 md:px-6 bg-black text-white">
               <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -353,13 +372,15 @@ function Page() {
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                     <DropdownMenuItem>Support</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem><button onClick={() => signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/Login` })}>Logout</button></DropdownMenuItem>
+                    <DropdownMenuItem><button onClick={() => signOut({ callbackUrl: `/Login` })}>Logout</button></DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             </header>
             {renderPage()}
       </div> 
+      }
+      </>
        )
 }
 
