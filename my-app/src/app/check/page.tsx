@@ -14,9 +14,9 @@ function Page() {
     return (
       <>
         {session ? (
-          <button onClick={connectTwitter}>Connect Twitter</button>
-        ) : (
           <p>Please login first.</p>
+        ) : (
+          <button onClick={connectTwitter}>Connect Twitter</button>
         )}
       </>
     );
