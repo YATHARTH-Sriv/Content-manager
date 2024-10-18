@@ -7,13 +7,13 @@ function Page() {
     const { data: session } = useSession();
 
     const connectTwitter = () => {
-      signIn('twitter', { callbackUrl: '/' });
+      signIn('twitter', { callbackUrl: '/check' });
     };
     const disconnectTwitter = () => {
-      signOut({ callbackUrl: '/' });
+      signOut({ callbackUrl: '/check' });
     }
     const connectGoogle = () => {
-      signIn('google', { callbackUrl: '/' });
+      signIn('google', { callbackUrl: '/check' });
     }
 
   
