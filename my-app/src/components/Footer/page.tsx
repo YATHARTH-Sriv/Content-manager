@@ -6,7 +6,7 @@ function Footer() {
       <div className="flex flex-col items-center justify-center">
         {/* Main Text */}
         <h1 className="text-3xl sm:text-4xl font-bold mb-4 p-3 text-gray-800 flex">
-          JustPaid
+          ContentGenie
           <p className='rounded-full text-green-500'>.</p>
         </h1>
 
@@ -22,7 +22,7 @@ function Footer() {
 
         {/* Bottom Text */}
         <div className="flex flex-col sm:flex-row justify-between w-full max-w-6xl mt-3 text-sm space-y-2 sm:space-y-0">
-          <p className="text-center sm:text-left">Copyright © 2024 HeyDaily Inc. (dba JustPaid) All rights reserved.</p>
+          <p className="text-center sm:text-left">Copyright © 2024  All rights reserved.</p>
           <div className="flex justify-center sm:justify-end space-x-4">
             <a href="#terms" className="hover:underline">Terms</a>
             <a href="#privacy" className="hover:underline">Privacy</a>

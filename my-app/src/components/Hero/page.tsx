@@ -6,18 +6,18 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const cardData = [
-  { title: "Automated Invoice Generation", description: "Save time and reduce errors with our smart invoice creation tools" },
-  { title: "Real-Time Data Analytics", description: "Gain instant insights into your financial performance with live updates and dynamic reports" },
-  { title: "Customizable Billing Rules", description: "Easily manage complex billing scenarios with AI managed rules" },
-  { title: "Manage approvals", description: "Collaborate and align on customer situations before you send invoices" },
-  { title: "Seamless Integration", description: "Connect effortlessly with your existing systems and platforms" },
-  { title: "Dunning and AI Collections", description: "Keep your customers on track with automated, natural language reminders before and after due dates" },
+  { title: "Automated Content Generation", description: "Save time and generate content with our smart  creation tools" },
+  { title: "Platforms Supported", description: "Twitter Linkedin Hashnode you name we have got it covered" },
+  { title: "Category Wise Content Creation", description: "Easily manage and create content based on various categories" },
+  { title: "Reasonable Subscriptions", description: "We offer credits at reasonable prices" },
+  { title: "Seamless Integration", description: "Connect and Effortlessly Integrate Your Socials To Post Your Posts" },
 ]
 
 function Hero() {
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
   const [userinfo, setuserinfo] = useState()
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +28,7 @@ function Hero() {
       }
     }
     fetchData()
-  },[userinfo])
+  },[session])
   
   
   return (
@@ -84,15 +84,15 @@ function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-2 w-full mt-10">
           <div className="p-6 text-3xl md:text-4xl font-semibold">
             <p className="ml-5">
-              Manual and Inefficient Billing Processes <br /> are holding you back
+              Manual and Inefficient Content Creation <br /> are holding you back
             </p>
             <p className="text-gray-500 mt-3 ml-5 text-sm md:text-base font-normal">
-              Relying on emails and spreadsheets not only delays processes but also leads to errors and inefficiencies that can hurt your cash flow...
+              If You are spending hours creating content, you are not focusing on your core business. Automate your content creation with ContentGenie
             </p>
           </div>
           <div className="flex justify-center mt-6 md:mt-0">
             <Image
-              src="/download.jpeg"
+              src="/contentgenie.png"
               height={500}
               width={500}
               alt="billing inefficiency"
@@ -105,7 +105,7 @@ function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-2 w-full mt-10">
           <div className="flex justify-center">
             <Image
-              src="/graph.jpeg"
+              src="/subcribe.png"
               height={500}
               width={500}
               alt="delayed payments"
@@ -114,10 +114,10 @@ function Hero() {
           </div>
           <div className="p-6 text-3xl md:text-4xl font-semibold ml-5">
             <p>
-              Delayed payments are draining your cash flow
+              Pay Only For What You Use
             </p>
             <p className="text-gray-500 mt-3 text-sm md:text-base font-normal">
-              When payments are delayed by 30 days or more, your cash flow takes a hit. Streamlining invoicing is key to ensuring timely payments...
+              Rather Paying for monthly/yearly basis for content creation , pay only for what you use. Use Our Affordable and Efficient AI-Powered Content Generation Platform 
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@ function Hero() {
           Features
         </h1>
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-          What sets JustPaid apart
+          What sets ContentGenie apart
         </h1>
         <div className="container mx-auto p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
