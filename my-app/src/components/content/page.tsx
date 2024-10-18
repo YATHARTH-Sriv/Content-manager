@@ -177,14 +177,14 @@ export default function ContentGenerator() {
               disabled={!platform || !category || !title || isLoading}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
             >
-              {isLoading ? 'Generating...' : 'Generate Blog'}
+              {isLoading ? 'Generating...' : 'Generate Content'}
             </Button>
 
             {error && <p className="text-red-500">{error}</p>}
 
             {showContent && (
               <div className="space-y-4">
-                <Label className="text-lg font-semibold">Generated Blog</Label>
+                <Label className="text-lg font-semibold">Generated Content</Label>
                 <ScrollArea className="h-[50vh] w-full p-4 ">
                   {/* <Textarea 
                     // value={generatedBlog.replace(/^"|"$/g, "")} 

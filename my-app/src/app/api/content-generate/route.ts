@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   let tokens=70
   if(platform==='twitter'){
     wordlimit=60
-    tokens=3
+    tokens=70
   }else if(platform==='linkedin'){
     wordlimit=300
     tokens=400
