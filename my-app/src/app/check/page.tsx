@@ -1,5 +1,5 @@
 "use client"
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 import React from 'react'
 
@@ -9,14 +9,26 @@ function Page() {
     const connectTwitter = () => {
       signIn('twitter', { callbackUrl: '/' });
     };
+    const disconnectTwitter = () => {
+      signOut({ callbackUrl: '/' });
+    }
+    const connectGoogle = () => {
+      signIn('google', { callbackUrl: '/' });
+    }
 
   
     return (
       <>
         {session ? (
-          <p>Please login first.</p>
+          <>
+          <p>You are logged in ${session.user.name}</p>
+          <button onClick={disconnectTwitter}>Disconnect Twitter</button>
+          </>
         ) : (
+          <div>
           <button onClick={connectTwitter}>Connect Twitter</button>
+          <button onClick={connectGoogle}>Connect Google</button>
+          </div>
         )}
       </>
     );
