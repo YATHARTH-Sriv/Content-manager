@@ -12,9 +12,9 @@ function Footer() {
 
         {/* Social Links */}
         <div className="flex space-x-4 sm:space-x-6 m-4">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Twitter</a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+          <a href="https://github.com/YATHARTH-Sriv" target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
+          <a href="https://twitter.com/yatharth_sriv" target="_blank" rel="noopener noreferrer" className="hover:underline">Twitter</a>
+          <a href="https://www.linkedin.com/in/yatharth-srivastava-0b0382261/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
         </div>
 
         {/* Border */}
