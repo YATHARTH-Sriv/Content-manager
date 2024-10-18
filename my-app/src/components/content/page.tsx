@@ -74,7 +74,7 @@ export default function ContentGenerator() {
   const handleTwitter = async () => {
     try {
       if(session?.accessToken ){
-        if(generatedBlog.length>0){
+        if(generatedBlog.length>0 && platform==='twitter'){
           const response = await axios.post('/api/schedule-post', {
             content: generatedBlog.replace(/^"|"$/g, ""),
             title,
