@@ -7,7 +7,7 @@ import UserModel from "@/lib/db/model/user.model";
 import { cookies } from "next/headers";
 
 export const runtime = 'edge'
-
+const cookie=cookies()
 export const authOptions: NextAuthOptions = {
   providers: [
     TwitterProvider({
@@ -31,6 +31,9 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === 'twitter') {
         token.accessToken = account.access_token;
         token.user=user.id
+        cookie.set('mytwitterid', user.id, { 
+          maxAge: 60 * 60 * 24 * 7,  // 1 week expiry
+        });
         
       }
       if(account?.provider==='google'){ 
