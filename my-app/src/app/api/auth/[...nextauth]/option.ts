@@ -42,29 +42,29 @@ export const authOptions: NextAuthOptions = {
         token.googleid=user.id
         token.googleimage=user.image as string
         token.googlename=user.name 
-        await dbconnect()
-        const existingUser = await UserModel.findOne({ userId: token.googleid });
-        console.log('existingUser',existingUser)
+        // await dbconnect()
+        // const existingUser = await UserModel.findOne({ userId: token.googleid });
+        // console.log('existingUser',existingUser)
         const cookieStore =  cookies();
         console.log("cookie value set up",token.googleid)
         const settingcookie=await cookieStore.set('mygoogleid', token.googleid, { 
            maxAge: 60 * 60 * 24 * 7,  // 1 week expiry
         });
-        if (!existingUser) {
-            const newUser = new UserModel({
-                name: token.googlename as string,
-                email: token.googleemail as string,
-                profileimageurl: token.googleimage as string,
-                userId: token.googleid as string,
-                credits: 3,            // Assign initial credits
-                twitterlogin: false,   // Initial value for Twitter login
-                mediumlogin: false,    // Initial value for Medium login
-                linkedinlogin: false,  // Initial value for LinkedIn login
-            });
+        // if (!existingUser) {
+        //     const newUser = new UserModel({
+        //         name: token.googlename as string,
+        //         email: token.googleemail as string,
+        //         profileimageurl: token.googleimage as string,
+        //         userId: token.googleid as string,
+        //         credits: 3,            // Assign initial credits
+        //         twitterlogin: false,   // Initial value for Twitter login
+        //         mediumlogin: false,    // Initial value for Medium login
+        //         linkedinlogin: false,  // Initial value for LinkedIn login
+        //     });
           
-          await newUser.save();
-          console.log(' google token',token)
-         }
+        //   await newUser.save();
+        //   console.log(' google token',token)
+        //  }
       }
       return token
     },
