@@ -6,7 +6,7 @@ import dbconnect from "@/lib/db/connect";
 import UserModel from "@/lib/db/model/user.model";
 import { cookies } from "next/headers";
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 export const authOptions: NextAuthOptions = {
   providers: [
     TwitterProvider({
