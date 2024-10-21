@@ -31,7 +31,7 @@ function Hero() {
   }, [session]);
 
   return (
-    <section className="flex flex-col items-center justify-center px-4 md:px-6 py-12 md:py-16 bg-white dark:bg-gray-900 gap-6">
+    <section className="flex flex-col items-center justify-center px-4 md:px-6 py-12 md:py-16 bg-white  gap-6">
       {/* Heading Section */}
       <div className="text-center max-w-4xl">
         <h1 className="text-2xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 flex flex-col md:flex-row gap-2 items-center justify-center">
