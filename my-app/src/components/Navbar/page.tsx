@@ -16,7 +16,7 @@ function Navbar() {
     <nav className="navbar border-black bg-base-100 fixed top-0 left-0 w-full z-50">
       {/* Navbar start with logo */}
       <div className="navbar-start">
-        <Link href={"/"} className="text-4xl sm:text-5xl m-2 p-3 font-bold flex text-gray-800">
+        <Link href={"/"} className="text-4xl sm:text-5xl m-2 p-3 font-bold flex ">
           ContentGenie
           <p className="rounded-full text-green-500">.</p>
         </Link>
