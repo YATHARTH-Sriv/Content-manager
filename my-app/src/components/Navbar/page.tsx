@@ -60,7 +60,7 @@ function Navbar() {
 
       {/* Mobile menu (shown when the hamburger icon is clicked) */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-base-100 shadow-lg lg:hidden">
+        <div className="absolute top-full left-0 w-full bg-white shadow-lg lg:hidden">
           <ul className="menu p-4 flex flex-col space-y-4">
             <li>
               <Link href={""} className="hover:bg-black hover:text-white font-medium text-lg">
