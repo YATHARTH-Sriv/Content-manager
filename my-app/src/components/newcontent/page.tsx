@@ -1,7 +1,6 @@
 "use client"
 import { CounterClockwiseClockIcon } from "@radix-ui/react-icons"
 import { CodeViewer } from "./components/code-viewer"
-import { PresetShare } from "./components/preset-share"
 import { PlatformSelector } from "./components/model-selector"
 import { models} from "./data/models"
 import { TemperatureSelector } from "./components/temperature-selector"
@@ -125,7 +124,7 @@ export default function PlaygroundPage() {
           <div className="ml-auto flex w-full space-x-2 sm:justify-end m-3">
             <div className="hidden space-x-2 md:flex">
               <CodeViewer />
-              <PresetShare />
+
             </div>
           </div>
         </div>
