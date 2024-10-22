@@ -27,7 +27,9 @@ function Hero() {
         setuserinfo(data);
       }
     };
+    if(session){
     fetchData();
+    }
   }, [session]);
 
   return (

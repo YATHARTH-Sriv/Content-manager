@@ -1,26 +1,24 @@
-
 "use client"
 import { CounterClockwiseClockIcon } from "@radix-ui/react-icons"
+import { CodeViewer } from "./components/code-viewer"
+import { PresetShare } from "./components/preset-share"
+import { PlatformSelector } from "./components/model-selector"
+import { models} from "./data/models"
+import { TemperatureSelector } from "./components/temperature-selector"
+import { Button } from "../ui/button"
+import { Textarea } from "../ui/textarea"
+import { Label } from "../ui/label"
+import { Separator } from "../ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card"
 import { useState } from "react"
 import axios from "axios"
 import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
+import { CategorySelector } from "./components/maxlength-selector"
 import { useSession } from "next-auth/react"
-import PlaygroundPage from '@/components/newcontent/page'
-import React from 'react'
-import { CodeViewer } from "@/components/newcontent/components/code-viewer"
-import { CategorySelector } from "@/components/newcontent/components/maxlength-selector"
-import { PlatformSelector } from "@/components/newcontent/components/model-selector"
-import { PresetShare } from "@/components/newcontent/components/preset-share"
-import { TemperatureSelector } from "@/components/newcontent/components/temperature-selector"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@radix-ui/react-hover-card"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs"
-import { Separator } from "@/components/ui/separator"
-import { Label } from "@/components/ui/label"
 
-function Contentgen() {
+export default function PlaygroundPage() {
   const [platform, setPlatform] = useState('')
   const [temperature, setTemperature] = useState(0.7)
   const [category, setCategory] = useState('')
@@ -74,6 +72,28 @@ function Contentgen() {
       setIsLoading(false)
     }
   }
+  // const handleTwitter = async () => {
+  //   try {
+  //       if(generatedBlog.length>0 && platform==='Twitter'){
+  //       // const response = await axios.post('/api/schedule-post', {
+  //       // content: generatedBlog.replace(/^"|"$/g, ""),
+  //       // title,
+  //       // category
+  //       // })
+  //       const response = await axios.post('/api/schedule-post', {
+  //         content: generatedBlog,
+  //       })
+  //       if (response.status === 200) {
+  //         alert('Tweet scheduled successfully!')
+  //       } else {
+  //         alert('Failed to schedule tweet');
+  //       }
+        
+  //   }} catch (error) {
+  //     console.error('Error scheduling tweet:', error);
+  //     alert('An error occurred while scheduling the tweet');
+  //   }
+  // }
   const handleTwitter = async () => {
         // e.preventDefault();
         if (!session) {
@@ -391,4 +411,4 @@ function Contentgen() {
   )
 }
 
-export default Contentgen
+

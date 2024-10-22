@@ -75,40 +75,39 @@ export default function ContentGenerator() {
     try {
       if(session?.accessToken ){
         if(generatedBlog.length>0 && platform==='twitter'){
-          const response = await axios.post('/api/schedule-post', {
-            content: generatedBlog.replace(/^"|"$/g, ""),
-            title,
-            category
+        const response = await axios.post('/api/schedule-post', {
+        content: generatedBlog.replace(/^"|"$/g, ""),
+        title,
+        category
+        })
+        if (response.status === 200) {
+          toast({
+          title: 'Tweet Posted successfully!',
+          description:"Go check your twitter account",
           })
-
-          if (response.status === 200) {
-            toast({
-              title: 'Tweet Posted successfully!',
-              description:"Go check your twitter account",
-            })
           } else {
-            toast({
-              variant: "destructive",
-              title: 'Failed to Post your tweet!',
-              description:"Something went wrong",
-            })
-          }
+          toast({
+          variant: "destructive",
+          title: 'Failed to Post your tweet!',
+          description:"Something went wrong",
+          })
+        }
+        }else if(platform==='linkedin' || platform==='hashnode'){
+                  toast({
+                    variant: "destructive",
+                    title: 'Currently We only support posting with twitter',
+                  })
+                }
         }else{
           toast({
             variant: "destructive",
-            title: 'Please generate content before scheduling tweet',
+            title: 'Please login to schedule tweet',
+            description:<Link href={"/twitterlogin"}>Connect Twitter</Link>
           })
         }
-    }else{
-      toast({
-        variant: "destructive",
-        title: 'Please login to schedule tweet',
-        description:<Link href={"/twitterlogin"}>Connect Twitter</Link>
-      })
-    }
-    } catch (err) {
-      alert('Error scheduling tweet')
-      console.error(err)
+    } catch (error) {
+      console.error('Error scheduling tweet:', error);
+      alert('An error occurred while scheduling the tweet');
     }
   }
 
