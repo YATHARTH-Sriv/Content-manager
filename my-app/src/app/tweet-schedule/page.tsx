@@ -6,12 +6,10 @@ import axios from "axios"
 import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
 import { useSession } from "next-auth/react"
-import PlaygroundPage from '@/components/newcontent/page'
 import React from 'react'
 import { CodeViewer } from "@/components/newcontent/components/code-viewer"
 import { CategorySelector } from "@/components/newcontent/components/maxlength-selector"
 import { PlatformSelector } from "@/components/newcontent/components/model-selector"
-import { PresetShare } from "@/components/newcontent/components/preset-share"
 import { TemperatureSelector } from "@/components/newcontent/components/temperature-selector"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -105,7 +103,6 @@ function Contentgen() {
           <div className="ml-auto flex w-full space-x-2 sm:justify-end m-3">
             <div className="hidden space-x-2 md:flex">
               <CodeViewer />
-              <PresetShare />
             </div>
           </div>
         </div>
