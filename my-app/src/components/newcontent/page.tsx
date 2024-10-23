@@ -1,9 +1,5 @@
 "use client"
 import { CounterClockwiseClockIcon } from "@radix-ui/react-icons"
-import { CodeViewer } from "./components/code-viewer"
-import { PlatformSelector } from "./components/model-selector"
-import { models} from "./data/models"
-import { TemperatureSelector } from "./components/temperature-selector"
 import { Button } from "../ui/button"
 import { Textarea } from "../ui/textarea"
 import { Label } from "../ui/label"
@@ -14,7 +10,7 @@ import { useState } from "react"
 import axios from "axios"
 import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
-import { CategorySelector } from "./components/maxlength-selector"
+import { CodeViewer, PlatformSelector, TemperatureSelector, CategorySelector } from "./index"
 import { useSession } from "next-auth/react"
 
 export default function PlaygroundPage() {
@@ -28,6 +24,7 @@ export default function PlaygroundPage() {
   const [showContent, setShowContent] = useState(false)
   const { toast } = useToast()
   const {data:session}=useSession()
+  console.log("session",session?.accessToken)
   console.log("choose platform temp",platform,temperature,title,category)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -71,28 +68,6 @@ export default function PlaygroundPage() {
       setIsLoading(false)
     }
   }
-  // const handleTwitter = async () => {
-  //   try {
-  //       if(generatedBlog.length>0 && platform==='Twitter'){
-  //       // const response = await axios.post('/api/schedule-post', {
-  //       // content: generatedBlog.replace(/^"|"$/g, ""),
-  //       // title,
-  //       // category
-  //       // })
-  //       const response = await axios.post('/api/schedule-post', {
-  //         content: generatedBlog,
-  //       })
-  //       if (response.status === 200) {
-  //         alert('Tweet scheduled successfully!')
-  //       } else {
-  //         alert('Failed to schedule tweet');
-  //       }
-        
-  //   }} catch (error) {
-  //     console.error('Error scheduling tweet:', error);
-  //     alert('An error occurred while scheduling the tweet');
-  //   }
-  // }
   const handleTwitter = async () => {
         // e.preventDefault();
         if (!session) {
@@ -102,7 +77,10 @@ export default function PlaygroundPage() {
     
         try {
           const response = await axios.post('/api/schedule-post', {
-              content: generatedBlog
+              title,
+              content:generatedBlog,
+              category,
+              // accessToken:session.accessToken
             })
     
           if (response.status === 200) {

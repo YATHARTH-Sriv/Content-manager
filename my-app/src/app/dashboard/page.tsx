@@ -43,6 +43,7 @@ import { ObjectId } from "mongoose"
 import { Skeleton } from "@/components/ui/skeleton"
 import TaskPage from "@/components/newui/page"
 import Contentgen from "../tweet-schedule/page"
+import PlaygroundPage from "@/components/newcontent/page"
 
 interface userinfodata{
 createdAt:string 
@@ -88,7 +89,7 @@ function Page() {
           // case 'Content':
           //   return <ContentGenerator />
           case 'Content':
-            return <Contentgen />
+            return <PlaygroundPage />
           case 'Profile':
             return <Profile />
           case 'Allcontent':

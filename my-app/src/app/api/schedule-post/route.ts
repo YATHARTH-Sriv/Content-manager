@@ -12,16 +12,12 @@ export async function POST(req: NextRequest) {
     // const { content, title,category} = await req.json();
     const { content, title,category} = await req.json();
     const session = await getServerSession(authOptions);
-  if (!session?.accessToken) {
-    console.error('Access token is missing in the session');
-    throw new Error('No access token available');
-  }
-  
-  console.log('Access token:', session.accessToken);
-  const twitterClient = new TwitterApi(session.accessToken);
+    console.log("session",session)
+   const accessToken="R0xwU1BZbjZ4Mi0xSy1Vc3QtZXZwaE5fR1pEZ0FKdjRZWmZTaTBlanJLaFh5OjE3Mjk2NTUzMTc4OTg6MToxOmF0OjE"
+   const twitterClient = new TwitterApi(accessToken);
   
   // Add more logging to inspect the session scopes (optional)
-  console.log('Session scopes:', session);
+  // console.log('Session scopes:', session);
   
   // Test posting a tweet to check the response
   const tweetResponse = await twitterClient.v2.tweet(content);
