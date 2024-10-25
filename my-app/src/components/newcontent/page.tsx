@@ -12,6 +12,7 @@ import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
 import { CodeViewer, PlatformSelector, TemperatureSelector, CategorySelector } from "./index"
 import { useSession } from "next-auth/react"
+import TweetPreviewPage from "../tweet/page"
 
 export default function PlaygroundPage() {
   const [platform, setPlatform] = useState('')
@@ -22,6 +23,7 @@ export default function PlaygroundPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [showContent, setShowContent] = useState(false)
+  const [newcontent, setnewcontent] = useState("")
   const { toast } = useToast()
   const {data:session}=useSession()
   console.log("session",session?.accessToken)
@@ -59,6 +61,8 @@ export default function PlaygroundPage() {
       const data = response.data
       let formattedContent = data.text.replace(/\n/g, '<br />')
       formattedContent = formattedContent.replaceAll("*", '')
+      formattedContent.replace(/^"|"$|/g, '')
+      formattedContent.replace("<br />", '')
       setGeneratedBlog(formattedContent)
       setShowContent(true)
     } catch (err) {
@@ -74,11 +78,22 @@ export default function PlaygroundPage() {
           alert('You must be signed in to schedule tweets');
           return;
         }
-    
+        if(platform!=="Twitter"){
+          alert('You must select Twitter as platform to schedule tweets');
+          return;
+        }
+        if (!generatedBlog) {
+          alert('Please generate content before scheduling a tweet');
+          return;
+        }
+        let content=generatedBlog.replace(/^"|"$|/g, '')
+        content=content.replace("<br />", '')
+        setnewcontent(content)
+        console.log("newcontent",newcontent)
         try {
           const response = await axios.post('/api/schedule-post', {
+              content:content,
               title,
-              content:generatedBlog,
               category,
               // accessToken:session.accessToken
             })
@@ -101,7 +116,8 @@ export default function PlaygroundPage() {
           <h2 className="text-lg font-semibold text-white p-2 ">Generate</h2>
           <div className="ml-auto flex w-full space-x-2 sm:justify-end m-3">
             <div className="hidden space-x-2 md:flex">
-              <CodeViewer />
+              {/* <CodeViewer /> */}
+              <TweetPreviewPage content={generatedBlog}/>
 
             </div>
           </div>
@@ -308,7 +324,7 @@ export default function PlaygroundPage() {
                             <span className="sr-only">Show history</span>
                             <CounterClockwiseClockIcon className="h-4 w-4" />
                           </Button>
-                          {generatedBlog && <Button onClick={handleTwitter}>
+                          {generatedBlog && platform==="Twitter" &&  <Button onClick={handleTwitter}>
                             Post it on Twitter
                           </Button>}
                         </div>

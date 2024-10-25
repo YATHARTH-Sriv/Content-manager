@@ -1,6 +1,5 @@
 import { generateText } from 'ai';
 import { openai } from '@ai-sdk/openai';
-import axios from 'axios';
 import UserModel from '@/lib/db/model/user.model';
 import { cookies } from 'next/headers';
 import GeneratedModel from '@/lib/db/model/generatedcontent.model';
@@ -17,10 +16,10 @@ export async function POST(req: Request) {
   let wordlimit=100
   let tokens=70
   if(platform==='twitter' || platform==="Twitter"){
-    wordlimit=60
+    wordlimit=27
     tokens=70
   }else if(platform==='linkedin' || platform==='Linkedin'){
-    wordlimit=300
+    wordlimit=200
     tokens=400
   }else if(platform==='hashnode' || platform==="Hashnode"){
     wordlimit=320
