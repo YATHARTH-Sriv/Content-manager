@@ -12,7 +12,7 @@ function page() {
     if(true){
         toast({
             title:"Thank For Using Content Genie",
-            description:<p className=" text-white">Currently subscriptions are not supported.<br/> Contact <Link href={"/https://x.com/yatharth_sriv"}>Yatharth</Link></p>,
+            description:<p className=" text-white">Currently subscriptions are not supported.<br/> Contact <Link href={"https://x.com/yatharth_sriv"}>Yatharth</Link></p>,
             variant:"destructive",
             className:"text-black"
           })
