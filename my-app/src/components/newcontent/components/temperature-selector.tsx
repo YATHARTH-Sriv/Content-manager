@@ -18,7 +18,7 @@ export function TemperatureSelector({ temperature, setTemperature }: Temperature
         <HoverCardTrigger asChild>
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
-              <Label htmlFor="temperature" className="text-white">Temperature</Label>
+              <Label htmlFor="temperature" className="text-white">Randomness</Label>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border text-white">
                 {temperature.toFixed(1)} {/* Display the value with 1 decimal precision */}
               </span>

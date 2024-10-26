@@ -24,6 +24,7 @@ export default function PlaygroundPage() {
   const [error, setError] = useState('')
   const [showContent, setShowContent] = useState(false)
   const [newcontent, setnewcontent] = useState("")
+  const [instruction, setInstruction] = useState("")
   const { toast } = useToast()
   const {data:session}=useSession()
   console.log("session",session?.accessToken)
@@ -55,7 +56,8 @@ export default function PlaygroundPage() {
         title,
         platform,
         category,
-        temperature
+        temperature,
+        instruction
       })
 
       const data = response.data
@@ -99,7 +101,12 @@ export default function PlaygroundPage() {
             })
     
           if (response.status === 200) {
-            alert('Tweet scheduled successfully!');
+            toast({
+              variant:"default",
+              title: 'Tweet was posted successfully',
+              description:"Go Check Your Twitter Account",
+              className: 'bg-green-500 text-white',
+            })
           } else {
             alert('Failed to schedule tweet');
           }
@@ -141,7 +148,7 @@ export default function PlaygroundPage() {
                       instructions to edit it.
                     </HoverCardContent>
                   </HoverCard>
-                  <TabsList className="grid grid-cols-3">
+                  <TabsList className="grid grid-cols-1">
                     <TabsTrigger value="complete">
                       <span className="sr-only">Complete</span>
                       <svg
@@ -208,7 +215,7 @@ export default function PlaygroundPage() {
                         ></rect>
                       </svg>
                     </TabsTrigger>
-                    <TabsTrigger value="insert">
+                    {/* <TabsTrigger value="insert">
                       <span className="sr-only">Insert</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -247,8 +254,8 @@ export default function PlaygroundPage() {
                           fill="currentColor"
                         ></rect>
                       </svg>
-                    </TabsTrigger>
-                    <TabsTrigger value="edit">
+                    </TabsTrigger> */}
+                    {/* <TabsTrigger value="edit">
                       <span className="sr-only">Edit</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -301,7 +308,7 @@ export default function PlaygroundPage() {
                           fill="currentColor"
                         ></path>
                       </svg>
-                    </TabsTrigger>
+                    </TabsTrigger> */}
                   </TabsList>
                 </div>
                 <PlatformSelector platform={platform} setPlatform={setPlatform} /> 
@@ -318,6 +325,15 @@ export default function PlaygroundPage() {
                           className="min-h-[100px] w-full p-7"
                           onChange={(e) => setTitle(e.target.value)}
                         />
+                        <div className="flex flex-col m-2">
+                          <p className=" text-white">Want Add More Details</p>
+                          <Label htmlFor="instructions">Instructions</Label>
+                          <Textarea
+                            id="instructions"
+                            placeholder="Want To add additional details."
+                            onChange={(e) => setInstruction(e.target.value)}
+                          />
+                        </div>
                         <div className="flex items-center space-x-2 mt-4">
                           <Button onClick={handleSubmit}>Submit</Button>
                           <Button variant="secondary">
@@ -344,7 +360,7 @@ export default function PlaygroundPage() {
                       )}
                     </div>
                   </TabsContent>
-                <TabsContent value="insert" className="mt-0 border-0 p-0">
+                {/* <TabsContent value="insert" className="mt-0 border-0 p-0">
                   <div className="flex flex-col space-y-4">
                     <div className="grid h-full grid-rows-2 gap-6 lg:grid-cols-2 lg:grid-rows-1">
                       <Textarea
@@ -362,7 +378,7 @@ export default function PlaygroundPage() {
                       </Button>
                     </div>
                   </div>
-                </TabsContent>
+                </TabsContent> */}
                 <TabsContent value="edit" className="mt-0 border-0 p-0">
                   <div className="flex flex-col space-y-4">
                     <div className="grid h-full gap-6 lg:grid-cols-2">

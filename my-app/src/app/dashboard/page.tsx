@@ -145,7 +145,7 @@ function Page() {
                   Upload Content
                 </Button>
               <p className="text-xs text-muted-foreground">
-                Last Time Uploaded: 2 days ago <button onClick={() => signOut({callbackUrl:`/dashboard`})}>Twitter</button>
+                 <button onClick={() => signOut({callbackUrl:`/dashboard`})}>SignOut</button>
               </p>
             </CardContent>: <CardContent>
               <div className="text-2xl font-bold">Connect Twitter</div>
@@ -311,9 +311,6 @@ function Page() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                    <DropdownMenuItem>Support</DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem><button onClick={() => signOut({ callbackUrl: `/Login` })}>Logout</button></DropdownMenuItem>
                   </DropdownMenuContent>
